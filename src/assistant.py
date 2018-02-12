@@ -54,8 +54,9 @@ class Assistant:
 
         if answer is None:
             answer = AssistantAnswer(mc.DID_NOT_UNDERSTAND)
-        formated_answer = self.format_answer(answer)
-        self.__history.append((user_request_str, formated_answer))
+        formatted_answer = self.format_answer(answer)
+        answer.message = formatted_answer
+        self.__history.append((user_request_str, formatted_answer))
         return answer
 
     def __get_module_by_class_name(self, clazz):

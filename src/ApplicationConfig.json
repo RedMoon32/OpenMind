@@ -206,6 +206,54 @@
           ]
         }
       ]
+    },
+    {
+      "name": "FactModule",
+      "description": "Module that generates facts",
+      "type": "Module",
+      "impl": "moduls.facts_module.FactModule",
+      "intents": [
+        {
+          "name": "Welcome",
+          "samples": [
+            "Facts guide"
+          ]
+        },
+        {
+          "name": "Random fact",
+          "key_phrases":[
+            "random",
+            "rnd"
+          ],
+          "samples": [
+            "Random fact"
+          ]
+        },
+        {
+          "name": "Fact about",
+          "key_phrases":[
+            "fact",
+            "tell me",
+            "facts",
+            "about"
+          ],
+          "samples": [
+            "Give me some fact",
+            "Fact about Stas",
+            "Tell me something about Innopolis University"
+          ],
+          "parameters": [
+            {
+              "name": "Request",
+              "data_type": "str",
+              "obligatory": true,
+              "question": "What do you want fact about?",
+              "regexp": "(.*fact (.+)$)|(.*tell me (.+)$)",
+              "reqexp_group_id": [1,3]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -254,6 +254,37 @@
           ]
         }
       ]
+    },    
+    {
+      "name": "Language translation",
+      "description": "Module for translation of interface",
+      "type": "Module",
+      "impl": "moduls.language_selector.LanguageSelector",
+      "intents": [
+        {
+          "name": "Change a language",
+          "samples": [
+            "change language on Spain",
+            "set up Russian language",
+            "set Russian language",
+            "switch on English",
+            "speak with me on English",
+            "speak with me on English language",
+            "tell on Spain",
+            "lets speak on Spain"
+          ],
+          "parameters": [
+            {
+              "name": "language",
+              "data_type": "str",
+              "obligatory": true,
+              "question": "What language do you want to chat on? Beside English I speak on Russian, Spain, Italian and Polish",
+              "regexp": "(^|.* )(russian|Russian|spain|Spain|english|English|italian|Italian|polish|Polish)( .*|$)",
+              "reqexp_group_id": [1]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -38,13 +38,6 @@ def start():
 
     print("Fitting facts generator")
     FactGenerator(default_config)
-    print("Done")
-    # FactGenerator(default_config)
-    # a = FactGenerator(default_config)
-    # # print(a.best_fact("Stas save"))
-    # b = FactModule(None)
-    # print(b.run(None, {"Request": "Stas", "Intent": "Fact about"}))
-    # return
 
     print("Started initialization of Word2Vect")
     is_binary_w2v = strtobool(default_config[W2VModelFileTypeKey])

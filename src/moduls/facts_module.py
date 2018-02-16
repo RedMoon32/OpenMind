@@ -19,7 +19,7 @@ class Singleton(type):
 class FactGenerator(metaclass=Singleton):
     def __init__(self, config):
         facts = []
-        with open(config[FactsFilePath], "r") as inp:
+        with open(config[FactsFilePath], "r", encoding="utf-8") as inp:
             facts = inp.readlines()
 
         vectorizer = TfidfVectorizer(stop_words=ENGLISH_STOP_WORDS.union(["fact", "tell", "about"]))

@@ -226,7 +226,8 @@
             "rnd"
           ],
           "samples": [
-            "Random fact"
+            "Random fact",
+            "Give me some fact"
           ]
         },
         {
@@ -234,11 +235,10 @@
           "key_phrases":[
             "fact",
             "tell me",
-            "facts",
-            "about"
+            "facts"
           ],
           "samples": [
-            "Give me some fact",
+            "Give me some fact about ..",
             "Fact about Stas",
             "Tell me something about Innopolis University"
           ],
@@ -254,7 +254,7 @@
           ]
         }
       ]
-    },    
+    },
     {
       "name": "Language translation",
       "description": "Module for translation of interface",

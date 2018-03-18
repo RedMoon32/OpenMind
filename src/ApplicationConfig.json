@@ -37,7 +37,7 @@
     },
     {
       "name": "MathModule",
-      "turn_on": false,
+      "turn_on": true,
       "description": "Module for solving math tasks",
       "type": "Module",
       "impl": "moduls.math_module.MathModule",

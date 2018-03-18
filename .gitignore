@@ -1,3 +1,4 @@
 .idea
 __pycache__
 data/history*.txt
+data/word2vect_300.bin

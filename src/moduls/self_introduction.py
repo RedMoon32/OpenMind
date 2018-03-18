@@ -17,6 +17,10 @@ class SelfIntroductionModule:
             answer = self.ability_demonstration(assistant, parameters_dict)
         elif intent == "Say hi":
             answer = AssistantAnswer(mc.HI_MESSAGE)
+        elif intent == "Say goodbye":
+            answer = AssistantAnswer(mc.GOODBYE_MESSAGE)
+        elif intent == "My affairs":
+            answer = AssistantAnswer(mc.MY_AFFAIRS)
         return answer
 
     def ability_demonstration(self, assistant, parameters_dict):

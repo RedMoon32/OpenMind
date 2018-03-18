@@ -32,6 +32,26 @@
             "hello",
             "hey"
           ]
+        },
+        {
+          "name": "Say goodbye",
+          "description": "Action for telling goodbye",
+          "samples": [
+            "goodbye",
+            "bye",
+            "see you",
+            "I need to go, "
+          ]
+        },
+        {
+          "name": "My affairs",
+          "description": "Action for sharing of DPA mood",
+          "samples": [
+            "How are you",
+            "What's app",
+            "What's new",
+            "How do you feel"
+          ]
         }
       ]
     },

@@ -52,6 +52,17 @@
             "What's new",
             "How do you feel"
           ]
+        },
+        {
+          "name": "Current time",
+          "description": "Action return current time",
+          "samples": [
+            "What's time",
+            "What is time",
+            "what time is it",
+            "Tell me time",
+            "Please, prompt me time"
+          ]
         }
       ]
     },

@@ -1,6 +1,7 @@
 import language.models.message_constant as mc
 from answer import AssistantAnswer
 from constants import FORM_ACTION_NAME
+import datetime
 
 
 class SelfIntroductionModule:
@@ -22,6 +23,10 @@ class SelfIntroductionModule:
             answer = AssistantAnswer(mc.GOODBYE_MESSAGE)
         elif intent == "My affairs":
             answer = AssistantAnswer(mc.MY_AFFAIRS)
+        elif intent == "Current time":
+            time = datetime.datetime.now()
+            params = {"hours": time.hour, "minutes": time.minute, "seconds": time.second}
+            answer = AssistantAnswer(mc.CURRENT_TIME, parameters_dict=params)
         return answer
 
     def ability_demonstration(self, assistant, parameters_dict):

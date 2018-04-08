@@ -11,6 +11,7 @@ from form.form import Form
 from language.translate import Translate
 import importlib
 import distutils.util as utils
+import json
 
 DEFAULT_ENCODING: str = "utf-8"
 GAME_TURN_INTENT_NAME: str = "Turn"
@@ -172,7 +173,7 @@ class Assistant:
         elif not self.__is_stub_mode:
             url = app.get_endpoint_url()
             try:
-                response = requests.post(url, data=parameters_dict)
+                response = requests.post(url, data=json.dumps(parameters_dict))
                 if response.status_code == 200:
                     response_dict = response.json()
                     message_source: Dict[str, str] = response_dict.get("answer")

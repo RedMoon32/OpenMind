@@ -10,6 +10,7 @@ from configs.config_constants import HistoryFilePath, IsStubMode, WMDThresholdKe
 from form.form import Form
 from language.translate import Translate
 import importlib
+import distutils.util as utils
 
 DEFAULT_ENCODING: str = "utf-8"
 GAME_TURN_INTENT_NAME: str = "Turn"
@@ -29,7 +30,7 @@ class Assistant:
         self.__stack = []
         self.__history: OrderedDict = OrderedDict()
         self.__config = config
-        self.__is_stub_mode = config[IsStubMode]
+        self.__is_stub_mode = utils.strtobool(config[IsStubMode])
         self.__message_bundle = message_bundle
         self.__w2v = kargs["w2v"]
         self.__game_app = None
@@ -173,7 +174,11 @@ class Assistant:
             try:
                 response = requests.post(url, data=parameters_dict)
                 if response.status_code == 200:
-                    answer = AssistantAnswer(None, message_str=response.json())
+                    response_dict = response.json()
+                    message_source: Dict[str, str] = response_dict.get("answer")
+                    if not message_source:
+                        message_source = response_dict.get("error")
+                    answer = AssistantAnswer(message_source["message_key"], message_str=message_source["message"])
                 else:
                     answer = AssistantAnswer(mc.ERROR_RESPONSE_CODE, parameters_dict={"code": response.status_code})
             except Exception:
@@ -202,12 +207,14 @@ class Assistant:
             pd.DataFrame(data=columns).to_csv(path, index=False, encoding=DEFAULT_ENCODING)
 
     def format_answer(self, answer):
+        message: str = None
         if answer.message_key is not None:
-            message = self.__message_bundle[answer.message_key]
-            params = answer.parameters
-            if params is not None:
-                message = message.format(**params)
-        else:
+            message = self.__message_bundle.get(answer.message_key)
+            if message:
+                params = answer.parameters
+                if params is not None:
+                    message = message.format(**params)
+        if not message:
             message = answer.message
         dest_lang = self.language_model.language_code
         if self.__user_defined_lang != dest_lang:

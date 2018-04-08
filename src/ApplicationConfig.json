@@ -327,10 +327,10 @@
       "turn_on": true,
       "description": "App for home management",
       "type": "RemoteApp",
-      "url": "https://d9acff61-5f74-49aa-ba66-037d455fa0d5.mock.pstmn.io/performAction",
+      "url": "http://192.168.10.4:5000/performAction",
       "intents": [
         {
-          "name": "Turn on",
+          "name": "Turn_on",
           "key_phrases": [
             "Turn on"
           ],
@@ -350,7 +350,7 @@
           ]
         },
         {
-          "name": "Turn off",
+          "name": "Turn_off",
           "key_phrases": [
             "Turn off"
           ],
@@ -376,6 +376,21 @@
             "play something",
             "I want to listen music",
             "turn on music"
+          ]
+        }
+      ]
+    },
+	{
+      "name": "Home2",
+      "turn_on": true,
+      "description": "App for home management",
+      "type": "RemoteApp",
+      "url": "http://192.168.10.4:5000/getSensorsData",
+      "intents": [
+        {
+          "name": "update_sensors",
+          "samples": [
+            "show dashboard"
           ]
         }
       ]

@@ -321,6 +321,64 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Home",
+      "turn_on": true,
+      "description": "App for home management",
+      "type": "RemoteApp",
+      "url": "https://d9acff61-5f74-49aa-ba66-037d455fa0d5.mock.pstmn.io/performAction",
+      "intents": [
+        {
+          "name": "Turn on",
+          "key_phrases": [
+            "Turn on"
+          ],
+          "samples": [
+            "turn on light",
+            "It's dark. Turn on light",
+            "turn on"
+          ],
+          "parameters": [
+            {
+              "name": "actor_name",
+              "data_type": "str",
+              "obligatory": true,
+              "question": "What should I turn on?",
+              "regexp": ".*turn on ([a-zA-Z]+)"
+            }
+          ]
+        },
+        {
+          "name": "Turn off",
+          "key_phrases": [
+            "Turn off"
+          ],
+          "samples": [
+            "turn off light",
+            "It's dark. Turn off light",
+            "turn off"
+          ],
+          "parameters": [
+            {
+              "name": "actor_name",
+              "data_type": "str",
+              "obligatory": true,
+              "question": "What should I turn off?",
+              "regexp": ".*turn off ([a-zA-Z]+)"
+            }
+          ]
+        },
+        {
+          "name": "Play",
+          "samples": [
+            "play smth",
+            "play something",
+            "I want to listen music",
+            "turn on music"
+          ]
+        }
+      ]
     }
   ]
 }

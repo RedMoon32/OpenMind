@@ -1,5 +1,6 @@
 import language.models.message_constant as mc
 from answer import AssistantAnswer
+from constants import FORM_ACTION_NAME
 
 
 class SelfIntroductionModule:
@@ -11,7 +12,7 @@ class SelfIntroductionModule:
         pass
 
     def run(self, assistant, parameters_dict):
-        intent = parameters_dict["Intent"]
+        intent = parameters_dict[FORM_ACTION_NAME]
         answer = None
         if intent == "Ability demonstration":
             answer = self.ability_demonstration(assistant, parameters_dict)

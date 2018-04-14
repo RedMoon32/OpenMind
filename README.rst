@@ -8,10 +8,14 @@ Instruction
 1. Install dependency from file instal_dependenses.bat
 2. Download project `CoreNLP <https://stanfordnlp.github.io/CoreNLP/>`_
 3. Install JDK 1.8 (Required for CoreNLP)
-4. Make copy of file src/configs/default_config.ini in the same folder and name it "config.ini". It allows you to change settings without conflicts with VSC.
-5. Download W2V for English and put it in folder data with name "word2vect_300.bin"
+4. Make a copy of file src/configs/default_config.ini in the same folder and name it "config.ini". It allows you to change settings without conflicts with VSC.
+5. Download W2V for English and put it in folder data with name "word2vect_300.bin". (Recomended Google News W2V 300)
 6. Run CoreNLP
 7. Run src/Main.py
+
+Papers
+===========
+Open source platform Digital Personal Assistant: `https://arxiv.org/abs/1801.03650 <https://arxiv.org/abs/1801.03650>`_
 
 Other
 =====

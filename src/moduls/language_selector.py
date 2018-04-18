@@ -5,7 +5,7 @@ class LanguageSelector:
     lang_map = {
         "russian": "ru",
         "english": "en",
-        "spain": "es",
+        "spanish": "es",
         "poland": "pl",
         "italian": "it"
     }

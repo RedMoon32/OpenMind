@@ -17,6 +17,7 @@ Instaliation
 Architecture
 ============
 In project 5 moduls can be lighlited:
+
 1. Intent processor application is responsible for handling particular user's intents
 2. Language processing module provides API for natural language modules
 3. Translation module translates unsupported by the DPA languages into supported one

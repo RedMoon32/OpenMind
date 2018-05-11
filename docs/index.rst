@@ -1,16 +1,13 @@
-.. DPA documentation master file, created by
+.. OpenMind documentation master file, created by
    sphinx-quickstart on Tue May  8 08:03:17 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to DPA's documentation!
+Welcome to OpenMind's documentation!
 ===============================
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-
+.. image:: https://readthedocs.org/projects/dpa/badge/?version=latest
+   :target: http://dpa.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
 
 Introduction
 ============

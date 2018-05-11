@@ -1,10 +1,21 @@
+.. OpenMind documentation master file, created by
+   sphinx-quickstart on Tue May  8 08:03:17 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to OpenMind's documentation!
+===============================
+.. image:: https://readthedocs.org/projects/dpa/badge/?version=latest
+   :target: http://dpa.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
 Introduction
 ============
 
 Nowadays Digital Personal Assistants (DPA) become more and more popular. DPAs help to increase quality of life especially for elderly or disabled people. The system is designed to use the DPA as a learning platform for engineers to provide them with the opportunity to create and test their own hypothesis. The DPA is able to recognize users' commands in natural language and transform it to the set of machine commands that can be used to control different 3rd-party application. 
 
 Instaliation
-===========
+============
 1. Install dependency from file instal_dependenses.bat
 2. Download project `CoreNLP <https://stanfordnlp.github.io/CoreNLP/>`_
 3. Install JDK 1.8 (Required for CoreNLP)
@@ -26,7 +37,7 @@ In project 5 moduls can be lighlited:
 
 
 Papers
-===========
+======
 Open source platform Digital Personal Assistant: `https://arxiv.org/abs/1801.03650 <https://arxiv.org/abs/1801.03650>`_
 
 Other

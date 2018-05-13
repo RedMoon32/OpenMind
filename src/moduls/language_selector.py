@@ -6,7 +6,7 @@ class LanguageSelector:
         "russian": "ru",
         "english": "en",
         "spanish": "es",
-        "poland": "pl",
+        "polish": "pl",
         "italian": "it"
     }
     def __init__(self, config):

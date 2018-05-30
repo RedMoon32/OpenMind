@@ -224,10 +224,6 @@ class Assistant:
         return message
 
     @property
-    def application_dict(self):
-        return self.__application_dict
-
-    @property
     def user_defined_language(self):
         return self.__user_defined_lang
 

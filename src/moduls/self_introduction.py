@@ -30,17 +30,5 @@ class SelfIntroductionModule:
         return answer
 
     def ability_demonstration(self, assistant, parameters_dict):
-        apps = assistant.application_dict
-        lines = []
-        for app_name, app_desc in apps.items():
-            lines.append(SelfIntroductionModule.HEAD_PATTERN.format(app_desc.get_name(), app_desc.get_description()))
-            for intent in app_desc.get_intents_list():
-                desc = intent.description
-                if desc is None:
-                    line = SelfIntroductionModule.INTENT_PATTERN.format(intent.get_name())
-                else:
-                    line = SelfIntroductionModule.INTENT_WITH_DESC_PATTERN.format(intent.get_name(), desc)
-                lines.append(line)
-        lines = "\n".join(lines)
-        answer = AssistantAnswer(mc.INTRODUCTION_MESSAGE, parameters_dict={"desc": lines})
+        answer = AssistantAnswer(mc.INTRODUCTION_MESSAGE)
         return answer

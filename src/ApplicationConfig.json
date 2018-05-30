@@ -123,7 +123,7 @@
       "turn_on": true,
       "description": "Module for playing in Matches game",
       "type": "Module",
-      "impl": "moduls.games.MatchesGameModule",
+      "impl": "moduls.matches_games.MatchesGameModule",
       "intents": [
         {
           "name": "Start Matches Game",

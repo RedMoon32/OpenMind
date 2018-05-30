@@ -2,9 +2,9 @@ from typing import Dict
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 
-from answer import AssistantAnswer
+from assistant.answer import AssistantAnswer
 from configs.config_constants import StartMessageKey, TokenKey, PrintMessages
-from assistant import Assistant
+from assistant.assistant import Assistant
 from interface.base_interface import BaseInterface
 
 USER_ASKS_PATTERN = "User {} {} asks: '{}'"

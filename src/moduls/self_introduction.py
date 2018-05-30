@@ -1,5 +1,5 @@
 import language.models.message_constant as mc
-from answer import AssistantAnswer
+from assistant.answer import AssistantAnswer
 from constants import FORM_ACTION_NAME
 import datetime
 

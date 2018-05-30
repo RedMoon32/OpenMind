@@ -4,7 +4,7 @@ from typing import Any, Dict
 import pandas as pd
 import requests
 import language.models.message_constant as mc
-from answer import AssistantAnswer
+from assistant.answer import AssistantAnswer
 from application.application import IntegrationType
 from configs.config_constants import HistoryFilePath, IsStubMode, WMDThresholdKey
 from form.form import Form
@@ -222,10 +222,6 @@ class Assistant:
             message = self._translate_module.translate(message, dest_lang, self.__user_defined_lang)
 
         return message
-
-    @property
-    def application_dict(self):
-        return self.__application_dict
 
     @property
     def user_defined_language(self):

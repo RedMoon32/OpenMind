@@ -1,7 +1,7 @@
 import traceback
 import logging
 from configs.config_constants import StartMessageKey
-from assistant import Assistant
+from assistant.assistant import Assistant
 from interface.base_interface import BaseInterface
 
 

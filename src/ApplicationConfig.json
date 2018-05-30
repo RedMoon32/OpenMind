@@ -207,47 +207,6 @@
       ]
     },
     {
-      "name": "XO game",
-      "turn_on": false,
-      "description": "Module for playing in XO game",
-      "type": "Module",
-      "impl": "moduls.five_in_row_game.XOModule",
-      "intents": [
-        {
-          "name": "Start XO Game",
-          "samples": [
-            "Play in XO game",
-            "XO game",
-            "Lets fight in XO game",
-            "Restart XO game",
-            "Restart XO",
-            "Reset XO game",
-            "Lets play in XO game",
-            "Play in XO game",
-            "XO game",
-            "Lets fight in XO game",
-            "Restart XO game",
-            "Reset XO game",
-            "Lets play in XO game",
-            "XO",
-            "Let's play XO"
-          ]
-        },
-        {
-          "name": "Turn",
-          "parameters": [
-            {
-              "name": "Position",
-              "data_type": "str",
-              "obligatory": true,
-              "question": "Where do you want to put your label?",
-              "regexp": "([A-Ja-j] ?\\d{1,2}) ?"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "Language translation",
       "turn_on": true,
       "description": "Module for translation of interface",

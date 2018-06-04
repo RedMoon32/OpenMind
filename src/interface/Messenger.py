@@ -13,7 +13,6 @@ class Messenger(BaseInterface):
 
     def __init__(self, language_model, app_dict, w2v, message_bundle, config):
         super().__init__(message_bundle, config)
-
         self.__language_model = language_model
         self.__app_dict = app_dict
         self.__w2v = w2v

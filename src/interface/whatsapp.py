@@ -1,7 +1,7 @@
 from app.mac import mac, signals
 from run import *
-from interface.Messenger import Messenger
 
+from interface.Messenger import *
 USER_ASKS_PATTERN = "{} {} asks: '{}'"
 bot = None
 

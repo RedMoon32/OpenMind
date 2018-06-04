@@ -7,10 +7,9 @@ from configs.config_constants import StartMessageKey, TokenKey, PrintMessages
 from interface.base_interface import BaseInterface
 from interface.Messenger import Messenger
 from assistant import Assistant
+from interface.Messenger import *
 
-USER_ASKS_PATTERN = "User {} {} asks: '{}'"
-ASSISTANT_ANSWERS_PATTERN = "Answer for user {} {}: '{}'"
-STOP_MESSAGE_KEY = "stop_message_key"
+
 
 
 class Telegram(Messenger):

@@ -4,27 +4,23 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 
 from answer import AssistantAnswer
 from configs.config_constants import StartMessageKey, TokenKey, PrintMessages
-from assistant import Assistant
 from interface.base_interface import BaseInterface
+from interface.Messenger import Messenger
+from assistant import Assistant
 
 USER_ASKS_PATTERN = "User {} {} asks: '{}'"
 ASSISTANT_ANSWERS_PATTERN = "Answer for user {} {}: '{}'"
 STOP_MESSAGE_KEY = "stop_message_key"
 
 
-class Telegram(BaseInterface):
+class Telegram(Messenger):
 
     def __init__(self, language_model, app_dict, w2v, message_bundle, config):
-        super().__init__(message_bundle, config)
-
-        self.__language_model = language_model
-        self.__app_dict = app_dict
-        self.__w2v = w2v
+        super().__init__(language_model, app_dict, w2v, message_bundle, config)
         self.__token = self.config[TokenKey]
-        self.__START_MESSAGE_KEY = self.config[StartMessageKey]
-        self.__user_assistant_dict: Dict[int, Assistant] = {}
-
-        self.__updater = Updater(self.__token)
+        self.__updater = Updater(self.__token, request_kwargs={'proxy_url': 'socks5://80.211.53.61:1080',
+                                                               'urllib3_proxy_kwargs': {'username': '',
+                                                                                        'password': ''}})
         dp = self.__updater.dispatcher
         dp.add_handler(CommandHandler("start", self.slash_start), group=0)
         dp.add_handler(CommandHandler("stop", self.slash_stop), group=0)
@@ -34,22 +30,10 @@ class Telegram(BaseInterface):
     def idle_main(self, bot, update):
         request = update.message.text.strip()
         user_id = update.message.chat_id
-        does_print = bool(self.config[PrintMessages])
         user_name = update.message.from_user.username
-        if does_print:
-            print((USER_ASKS_PATTERN.format(user_id, user_name, request)))
-        assistant: Assistant = self.__user_assistant_dict.get(user_id, None)
-        if assistant is None:
-            assistant: Assistant = Assistant(self.__language_model, self.message_bundle, self.__app_dict,
-                                             self.config, w2v=self.__w2v, user_id=user_id)
-            self.__user_assistant_dict[user_id] = assistant
-        answer = assistant.process_request(request)
-        message = answer.message
-        if does_print:
-            print(ASSISTANT_ANSWERS_PATTERN.format(user_id, user_name, message))
-
+        answer = super().proccess_request(user_id, user_name, request)
         buttons = self.get_buttons(answer.dialog_step)
-        bot.sendMessage(user_id, text=message, reply_markup=buttons)
+        bot.sendMessage(user_id, text=answer.message, reply_markup=buttons)
         if answer.picture is not None:
             image = answer.picture
             if hasattr(image, 'read'):
@@ -60,10 +44,10 @@ class Telegram(BaseInterface):
 
     def slash_stop(self, bot, update):
         user_id: int = update.message.chat_id
-        assistant: Assistant = self.__user_assistant_dict.get(user_id, None)
+        assistant: Assistant = self.user_assistant_dict.get(user_id, None)
         if assistant is not None:
             assistant.stop()
-            del self.__user_assistant_dict[user_id]
+            del self.user_assistant_dict[user_id]
             bot.sendMessage(update.message.chat_id, text=self.message_bundle[STOP_MESSAGE_KEY])
 
     def evaluate(self, bot: Bot, update):
@@ -73,18 +57,16 @@ class Telegram(BaseInterface):
         data_list = raw_data.split("_")
         mark = data_list[0]
         dialog_step = int(data_list[1])
-        assistant: Assistant = self.__user_assistant_dict.get(user_id)
-        if assistant:
-            answer: AssistantAnswer = assistant.mark(dialog_step, mark)
-            if answer:
-                bot.sendMessage(user_id, text=answer.message)
+        ans=self.evaluate_(dialog_step,user_id,mark)
+        if ans!=None:
+            bot.sendMessage(user_id, text=ans)
 
     def start(self):
         self.__updater.start_polling()
 
     def stop(self):
         self.__updater.stop()
-        for assistant in self.__user_assistant_dict.values():
+        for assistant in self.user_assistant_dict.values():
             assistant.stop()
 
     def get_buttons(self, message_id) -> InlineKeyboardMarkup:

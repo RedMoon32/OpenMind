@@ -20,7 +20,7 @@ class Messenger(BaseInterface):
         self.__START_MESSAGE_KEY = self.config[StartMessageKey]
         self.user_assistant_dict: Dict[int, Assistant] = {}
 
-    def proccess_request(self, user_id, user_name, request):
+    def proccess_request(self, user_id:int, user_name:str, request:str):
         does_print = bool(self.config[PrintMessages])
         if does_print:
             print((USER_ASKS_PATTERN.format(user_id, user_name, request)))
@@ -35,7 +35,7 @@ class Messenger(BaseInterface):
             print(ASSISTANT_ANSWERS_PATTERN.format(user_id, user_name, message))
         return answer
 
-    def evaluate_(self,step,user_id,mark):
+    def evaluate_request(self,step,user_id,mark):
         assistant: Assistant = self.user_assistant_dict.get(user_id)
         if assistant:
             answer: AssistantAnswer = assistant.mark(step,mark)

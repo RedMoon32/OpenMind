@@ -17,9 +17,7 @@ class Telegram(Messenger):
     def __init__(self, language_model, app_dict, w2v, message_bundle, config):
         super().__init__(language_model, app_dict, w2v, message_bundle, config)
         self.__token = self.config[TokenKey]
-        self.__updater = Updater(self.__token, request_kwargs={'proxy_url': 'socks5://80.211.53.61:1080',
-                                                               'urllib3_proxy_kwargs': {'username': '',
-                                                                                        'password': ''}})
+        self.__updater = Updater(self.__token)
         dp = self.__updater.dispatcher
         dp.add_handler(CommandHandler("start", self.slash_start), group=0)
         dp.add_handler(CommandHandler("stop", self.slash_stop), group=0)
@@ -56,7 +54,7 @@ class Telegram(Messenger):
         data_list = raw_data.split("_")
         mark = data_list[0]
         dialog_step = int(data_list[1])
-        ans=self.evaluate_(dialog_step,user_id,mark)
+        ans=self.evaluate_request(dialog_step,user_id,mark)
         if ans!=None:
             bot.sendMessage(user_id, text=ans)
 

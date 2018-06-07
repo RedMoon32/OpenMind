@@ -23,7 +23,7 @@ Instaliation
 5. Download W2V for English and put it in folder data with name "word2vect_300.bin". (Recomended Google News W2V 300)
 6. Run CoreNLP
 7. Run src/Main.py
-8.Add WhatsApp
+
 
 Architecture
 ============

@@ -1,0 +1,7 @@
+python-telegram-bot --upgrade
+wolframalpha
+pyemd
+pycorenlp
+yandex.translate
+gensim
+wolframalpha

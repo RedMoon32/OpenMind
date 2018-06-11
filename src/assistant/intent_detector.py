@@ -8,25 +8,22 @@ from gensim.models.keyedvectors import EuclideanKeyedVectors
 
 class IntentDetector:
 
-    def __init__(self, config: Dict[str, Any], application_dict:Dict[str, Application], w2v: EuclideanKeyedVectors):
+    def __init__(self, config: Dict[str, Any], application_dict: Dict[str, Application], w2v: EuclideanKeyedVectors):
         self.__config = config
         self.__application_dict = application_dict
         self.__w2v = w2v
 
     def detect_intent(self, request_information: RequestInformation) -> tuple:
         app_name = request_information.get_app_name()
-        app = None
-        intent_description = None
-        if app_name:
-            app_name = app_name.lower()
-            app = self.__application_dict.get(app_name, None)
-            if app is None:
-                app, intent_description = self.__find_intent_by_samples(request_information)
-                if intent_description is None:
-                    app, intent_description = self.__find_intent_by_intersection_words(request_information)
-            else:
-                lemma = request_information.get_intent().get_lemma()
-                intent_description = app.get_intent(lemma)
+        app = self.__application_dict.get(app_name, None)
+        if app is None:
+            app, intent_description = self.__find_intent_by_samples(request_information)
+            if intent_description is None:
+                app, intent_description = self.__find_intent_by_intersection_words(request_information)
+        else:
+            lemma = request_information.get_intent().get_lemma()
+            intent_description = app.get_intent(lemma)
+
         return app, intent_description
 
     def __find_intent_by_samples(self, request_information):
@@ -41,13 +38,12 @@ class IntentDetector:
         for app_name, app_description in self.__application_dict.items():
             for intent in app_description.get_intents_list():
                 samples = intent.get_samples()
-                if samples is not None:
-                    for sample in samples:
-                        dist = self.__w2v.wmdistance(new_request_list, sample)
-                        if dist < min_dist:
-                            min_dist = dist
-                            app = app_description
-                            intent_description = intent
+                for sample in samples:
+                    dist = self.__w2v.wmdistance(new_request_list, sample)
+                    if dist < min_dist:
+                        min_dist = dist
+                        app = app_description
+                        intent_description = intent
         return app, intent_description
 
     def __find_intent_by_intersection_words(self, request_information):

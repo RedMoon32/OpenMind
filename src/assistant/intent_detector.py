@@ -15,15 +15,18 @@ class IntentDetector:
 
     def detect_intent(self, request_information: RequestInformation) -> tuple:
         app_name = request_information.get_app_name()
-        app_name = app_name.lower()
-        app = self.__application_dict.get(app_name, None)
-        if app is None:
-            app, intent_description = self.__find_intent_by_samples(request_information)
-            if intent_description is None:
-                app, intent_description = self.__find_intent_by_intersection_words(request_information)
-        else:
-            lemma = request_information.get_intent().get_lemma()
-            intent_description = app.get_intent(lemma)
+        app = None
+        intent_description = None
+        if app_name:
+            app_name = app_name.lower()
+            app = self.__application_dict.get(app_name, None)
+            if app is None:
+                app, intent_description = self.__find_intent_by_samples(request_information)
+                if intent_description is None:
+                    app, intent_description = self.__find_intent_by_intersection_words(request_information)
+            else:
+                lemma = request_information.get_intent().get_lemma()
+                intent_description = app.get_intent(lemma)
         return app, intent_description
 
     def __find_intent_by_samples(self, request_information):

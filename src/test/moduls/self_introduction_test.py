@@ -1,7 +1,7 @@
 import unittest
 
 from constants import FORM_ACTION_NAME
-from language.models.message_constant import INTRODUCTION_MESSAGE, HI_MESSAGE
+from language.models.message_constant import INTRODUCTION_MESSAGE, HI_MESSAGE, GOODBYE_MESSAGE
 from moduls.self_introduction import SelfIntroductionModule
 
 
@@ -25,5 +25,5 @@ class SelfIntroductionModuleTest(unittest.TestCase):
     def test_3(self):
         parameters_dict = {FORM_ACTION_NAME: "Say goodbye"}
         answer = self.module.run(None, parameters_dict)
-        self.assertEqual(HI_MESSAGE, answer.message_key)
+        self.assertEqual(GOODBYE_MESSAGE, answer.message_key)
         self.assertIsNone(answer.parameters)

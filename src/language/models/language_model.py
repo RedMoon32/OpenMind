@@ -1,13 +1,13 @@
 from language.models.part_of_speech import POS
 from language.models.request_type import RequestType
-EMPTY_STRING = ""
+
 
 class RequestInformation:
     def __init__(self, tokens_list, intent, rtype, raw_request):
         self.__type = rtype
         self.__tokens_list = tokens_list
         self.__intent = intent
-        self.__app_name_str = EMPTY_STRING
+        self.__app_name_str = None
         self.__raw_request = raw_request
 
     def get_type(self):

@@ -47,8 +47,8 @@ def start():
     print("Making assistant")
 
     interface_type = default_config[InterfaceTypeKey]
+    interface_type = CONSOLE
     interface_class = get_interface(interface_type)
-
     interface = interface_class(language_model, app_dict, w2v, message_bundle, default_config)
 
     if interface_type == CONSOLE:

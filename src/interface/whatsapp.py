@@ -4,22 +4,25 @@ from modules.PDA_Bot.Pda import set_bot
 from interface.Messenger import *
 from threading import Thread
 from time import sleep
+
 USER_ASKS_PATTERN = "{} {} asks: '{}'"
 
 
 class WhatsApp(Messenger):
 
-    def __init__(self, language_model, app_dict, w2v, message_bundle, config):
-        super().__init__(language_model, app_dict, w2v, message_bundle, config)
-        self.__step = 0
+    def __init__(self, language_model, intent_detector, message_bundle, config):
+        super().__init__(language_model, intent_detector, message_bundle, config)
+
 
     def start(self):
-        t=Thread(target=run,args=())
+        t = Thread(target=run, args=())
         t.start()
         set_bot(self)
 
     def stop(self):
-        pass
+        stop()
+        for assistant in self.user_assistant_dict.values():
+            assistant.stop()
 
     def process_request__(self, mess):
         request = mess.text.strip()
@@ -35,7 +38,6 @@ class WhatsApp(Messenger):
         request = mess.text.strip()
         user_id = int(mess.who.split('@')[0])
         mark = 1 if request == '👍' else 0
-        ans = self.evaluate_request(self.__step, user_id, mark)
+        ans = self.evaluate_request(user_id, mark,last=True)
         if ans != None:
             mac.send_message(ans, mess.conversation)
-            self.__step += 1

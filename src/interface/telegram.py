@@ -2,22 +2,24 @@ from typing import Dict
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 
-from answer import AssistantAnswer
+from assistant.answer import AssistantAnswer
+from assistant.intent_detector import IntentDetector
 from configs.config_constants import StartMessageKey, TokenKey, PrintMessages
+from assistant.assistant import Assistant
 from interface.base_interface import BaseInterface
 from interface.Messenger import Messenger
-from assistant import Assistant
 from interface.Messenger import *
 
-
+socks = None
 
 
 class Telegram(Messenger):
 
-    def __init__(self, language_model, app_dict, w2v, message_bundle, config):
-        super().__init__(language_model, app_dict, w2v, message_bundle, config)
+    def __init__(self, language_model, intent_detector: IntentDetector, message_bundle, config):
+        super().__init__(language_model, intent_detector, message_bundle, config)
         self.__token = self.config[TokenKey]
-        self.__updater = Updater(self.__token)
+        self.__updater = Updater(self.__token, request_kwargs=socks)
+        self.__START_MESSAGE_KEY = self.config[StartMessageKey]
         dp = self.__updater.dispatcher
         dp.add_handler(CommandHandler("start", self.slash_start), group=0)
         dp.add_handler(CommandHandler("stop", self.slash_stop), group=0)
@@ -54,8 +56,8 @@ class Telegram(Messenger):
         data_list = raw_data.split("_")
         mark = data_list[0]
         dialog_step = int(data_list[1])
-        ans=self.evaluate_request(dialog_step,user_id,mark)
-        if ans!=None:
+        ans = self.evaluate_request(user_id, mark,step=dialog_step)
+        if ans != None:
             bot.sendMessage(user_id, text=ans)
 
     def start(self):

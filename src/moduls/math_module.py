@@ -1,6 +1,6 @@
 import wolframalpha
 import language.models.message_constant as mc
-from answer import AssistantAnswer
+from assistant.answer import AssistantAnswer
 from configs.config_constants import WolframAlphaAppIdKey
 from constants import FORM_ACTION_NAME
 

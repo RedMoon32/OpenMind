@@ -4,9 +4,10 @@ from typing import Any, Dict
 import pandas as pd
 import requests
 import language.models.message_constant as mc
-from answer import AssistantAnswer
+from assistant.answer import AssistantAnswer
 from application.application import IntegrationType
-from configs.config_constants import HistoryFilePath, IsStubMode, WMDThresholdKey
+from assistant.intent_detector import IntentDetector
+from configs.config_constants import HistoryFilePath, IsStubMode
 from form.form import Form
 from language.translate import Translate
 import importlib
@@ -25,21 +26,20 @@ class Assistant:
     __DIALOG_STEP: str = "dialog_step"
     __NO_MARK: int = -1
 
-    def __init__(self, language_model, message_bundle, application_dict, config, **kargs):
+    def __init__(self, language_model, message_bundle, config, intent_detector: IntentDetector, **kargs):
         self.language_model = language_model
-        self.__application_dict = application_dict
         self.__stack = []
         self.__history: OrderedDict = OrderedDict()
         self.__config = config
         self.__is_stub_mode = utils.strtobool(config[IsStubMode])
         self.__message_bundle = message_bundle
-        self.__w2v = kargs["w2v"]
         self.__game_app = None
         self.__user_id = kargs.get("user_id", "console")
         self.__modules = {}
         self.__user_defined_lang = self.language_model.language_code
         self._translate_module = Translate(config)
         self.__dialog_step = 0
+        self.__intent_detector = intent_detector
 
     def process_request(self, user_request_str):
         dest_lang = self.language_model.language_code
@@ -47,8 +47,7 @@ class Assistant:
             user_request_str = self._translate_module.translate(user_request_str, self.__user_defined_lang, dest_lang)
 
         request_information = self.language_model.parse(user_request_str)
-
-        app, intent_description = self.__extract_app(request_information)
+        app, intent_description = self.__intent_detector.detect_intent(request_information)
 
         if app is None or intent_description is None:
             if len(self.__stack) > 0:
@@ -108,53 +107,6 @@ class Assistant:
             module = MyClass(self.__config)
             self.__modules[clazz] = module
         return module
-
-    def __find_intent_by_samples(self, request_information):
-        temp_list = request_information.get_tokens_list()
-        new_request_list = []
-        for token in temp_list:
-            new_request_list.append(token.get_lemma())
-
-        app = None
-        intent_description = None
-        min_dist = float(self.__config[WMDThresholdKey])
-        for app_name, app_description in self.__application_dict.items():
-            for intent in app_description.get_intents_list():
-                samples = intent.get_samples()
-                if samples is not None:
-                    for sample in samples:
-                        dist = self.__w2v.wmdistance(new_request_list, sample)
-                        if dist < min_dist:
-                            min_dist = dist
-                            app = app_description
-                            intent_description = intent
-        return app, intent_description
-
-    def __find_intent_by_intersection_words(self, request_information):
-        app = None
-        intent_description = None
-        for app_name, app_imp in self.__application_dict.items():
-            intents_dict = app_imp.get_intents()
-            for intent_key, intent in intents_dict.items():
-                for token in request_information.get_tokens_list():
-                    if token.get_lemma() == intent_key:
-                        app = app_imp
-                        intent_description = intent
-                        return app, intent_description
-        return app, intent_description
-
-    def __extract_app(self, request_information):
-        app_name = request_information.get_app_name()
-        app_name = app_name.lower()
-        app = self.__application_dict.get(app_name, None)
-        if app is None:
-            app, intent_description = self.__find_intent_by_samples(request_information)
-            if intent_description is None:
-                app, intent_description = self.__find_intent_by_intersection_words(request_information)
-        else:
-            lemma = request_information.get_intent().get_lemma()
-            intent_description = app.get_intent(lemma)
-        return app, intent_description
 
     def __process_intent(self, app, request_information, form):
         answer = form.process(request_information)
@@ -222,10 +174,6 @@ class Assistant:
             message = self._translate_module.translate(message, dest_lang, self.__user_defined_lang)
 
         return message
-
-    @property
-    def application_dict(self):
-        return self.__application_dict
 
     @property
     def user_defined_language(self):

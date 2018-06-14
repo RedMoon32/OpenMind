@@ -1,5 +1,6 @@
 from configparser import ConfigParser
 from application.application_config import load_config
+from assistant.intent_detector import IntentDetector
 
 from interface.console import Console
 from interface.telegram import Telegram
@@ -46,10 +47,12 @@ def start():
     w2v = KeyedVectors.load_word2vec_format(default_config[W2VModelPathKey], binary=is_binary_w2v)
     print("Making assistant")
 
+    detector: IntentDetector = IntentDetector(default_config, app_dict, w2v)
+
     interface_type = default_config[InterfaceTypeKey]
     interface_type = CONSOLE
     interface_class = get_interface(interface_type)
-    interface = interface_class(language_model, app_dict, w2v, message_bundle, default_config)
+    interface = interface_class(language_model, detector, message_bundle, default_config)
 
     if interface_type == CONSOLE:
         print(STARTED_WORKING_MESSAGE)

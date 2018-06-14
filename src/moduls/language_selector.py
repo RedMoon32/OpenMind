@@ -1,4 +1,4 @@
-from answer import AssistantAnswer
+from assistant.answer import AssistantAnswer
 
 
 class LanguageSelector:

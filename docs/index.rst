@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to OpenMind's documentation!
-===============================
+====================================
 .. image:: https://readthedocs.org/projects/dpa/badge/?version=latest
    :target: http://dpa.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
@@ -16,11 +16,11 @@ Nowadays Digital Personal Assistants (DPA) become more and more popular. DPAs he
 
 Instaliation
 ============
-1. Install dependency from file instal_dependenses.bat
+1. Install dependency from file requirements.txt
 2. Download project `CoreNLP <https://stanfordnlp.github.io/CoreNLP/>`_
 3. Install JDK 1.8 (Required for CoreNLP)
 4. Make a copy of file src/configs/default_config.ini in the same folder and name it "config.ini". It allows you to change settings without conflicts with VSC.
-5. Download W2V for English and put it in folder data with name "word2vect_300.bin". (Recomended Google News W2V 300)
+5. Download W2V for English and put it in folder data with name "word2vect_300.bin". (Recommend `Google News W2V 300 <https://github.com/mmihaltz/word2vec-GoogleNews-vectors>`_)
 6. Run CoreNLP
 7. Run src/Main.py
 

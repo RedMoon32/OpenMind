@@ -4,4 +4,3 @@ pyemd
 pycorenlp
 yandex.translate
 gensim
-wolframalpha

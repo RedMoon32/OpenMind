@@ -99,6 +99,9 @@ class Assistant:
             answer.message = formatted_answer
         return answer
 
+    def mark_last(self, mark: int):
+        return self.mark(list(self.__history.keys())[-1], mark)
+
     def __get_module_by_class_name(self, clazz):
         module = self.__modules.get(clazz, None)
         if module is None:

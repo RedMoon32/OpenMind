@@ -1,4 +1,4 @@
-from assistant.answer import AssistantAnswer
+from answer import AssistantAnswer
 import random
 from constants import FORM_ACTION_NAME
 

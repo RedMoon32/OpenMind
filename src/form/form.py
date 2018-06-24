@@ -1,4 +1,4 @@
-from assistant.answer import AssistantAnswer
+from answer import AssistantAnswer
 from application.data_type import DataType
 from language.models.named_entity_recognition import NERType
 from language.models.request_type import RequestType

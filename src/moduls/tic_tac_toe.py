@@ -1,4 +1,4 @@
-from assistant.answer import AssistantAnswer
+from answer import AssistantAnswer
 from enum import Enum
 from PIL import Image, ImageFont, ImageDraw
 from string import ascii_uppercase

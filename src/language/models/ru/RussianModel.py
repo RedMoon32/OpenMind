@@ -28,7 +28,7 @@ class RussianLanguageModel(LanguageModel):
 
         self.ner_map = {"Name": NERType.PERSON,
                         "Surn": NERType.PERSON,
-                        "NUMBER": NERType.NUMBER}
+                        "NUMB": NERType.NUMBER}
 
         self.__question_words = {"где", "кто", "что", "когда", "почему", "чей", "какой", "как"}
 
@@ -59,5 +59,8 @@ class RussianLanguageModel(LanguageModel):
             pos_tag = self.convert_pos(description.tag.POS)
             token = Token(word, lemma, pos_tag)
             result.append(token)
-            return result
+        return result
 
+r=RussianLanguageModel(None)
+a=r.tokenize('Привет 33 зовут Илья')
+print()

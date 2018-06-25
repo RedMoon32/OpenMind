@@ -48,6 +48,7 @@ def start():
     detector: IntentDetector = IntentDetector(default_config, app_dict, w2v)
 
     interface_type = default_config[InterfaceTypeKey]
+    interface_type = CONSOLE
     interface_class = get_interface(interface_type)
     interface = interface_class(language_model, detector, message_bundle, default_config)
 

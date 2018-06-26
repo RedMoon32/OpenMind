@@ -1,6 +1,7 @@
 # Base OS:
 FROM ubuntu
 
+
 # setting up OS:
 RUN echo                                       \
   && apt-get update                            \
@@ -10,7 +11,6 @@ RUN echo                                       \
 
 # Setting up java:
 RUN echo                                       \
-  && apt-get install -y default-jdk            \
   && apt-get install -y default-jre
 
 
@@ -20,20 +20,16 @@ RUN echo                                       \
   && pip3 install -U setuptools
 
 
-# Setting up the requirements:
-RUN echo                                       \
-  && pip3 install numpy                        \
-  && pip3 install -U python-telegram-bot       \
-  && pip3 install -U wolframalpha              \
-  && pip3 install -U pycorenlp                 \
-  && pip3 install -U yandex.translate          \
-  && pip3 install -U gensim                    \
-  && pip3 install -U pyemd                     \
-  && pip3 install -U pandas
+# Copying files to container
+COPY requirements.txt /
+COPY src /src
+COPY data /data
+COPY histories /histories
 
 
-# Copying all files from current directory to container for further execution:
-COPY . /
+# Installing requirements
+RUN pip3 install -r ./requirements.txt
 
-# For testing
+
+# Place where the platform stars to run (used "bash" for testing)
 ENTRYPOINT ["/bin/bash"]

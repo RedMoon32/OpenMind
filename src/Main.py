@@ -20,8 +20,7 @@ CONSOLE = "console"
 def start():
     print("Started initialization")
 
-    default_config = ConfigManager(["configs/config.ini" if os.path.isfile("configs/config.ini")
-                                    else "config/default_config.ini"])
+    default_config = ConfigManager(["configs/config.ini","configs/default_config.ini"])
 
     logging.basicConfig(level=default_config[LogLevelKey],
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')

@@ -1,0 +1,38 @@
+{
+  "applications": [
+    {
+      "name": "ExplanationModule",
+      "turn_on": true,
+      "description": "Module for introduction itself",
+      "type": "Module",
+      "impl": "moduls.self_introduction.SelfIntroductionModule",
+      "intents": [
+        {
+          "name": "Ability demonstration",
+          "description": "Representation of assistant ability",
+          "samples": [
+            "Что ты можешь сделать",
+            "Что вы можете",
+            "Какие команды вы знаете",
+            "Какие у вас функции",
+            "Что вы можете сделать, чтобы помочь",
+            "Как ты можешь помочь",
+            "Покажите мне свои способности",
+            "Твои возможности",
+            "Хорошо, что ты можешь сделать?",
+            "Расскажи мне о себе"
+          ]
+        },
+        {
+          "name": "Say hi",
+          "description": "Module for welcome user",
+          "samples": [
+            "Привет",
+            "Здравствуй",
+            "Прив"
+          ]
+        }
+      ]
+    }
+  ]
+}

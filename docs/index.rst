@@ -21,8 +21,9 @@ Instaliation
 3. Install JDK 1.8 (Required for CoreNLP)
 4. Make a copy of file src/configs/default_config.ini in the same folder and name it "config.ini". It allows you to change settings without conflicts with VSC.
 5. Download W2V for English and put it in folder data with name "word2vect_300.bin". (Recommend `Google News W2V 300 <https://github.com/mmihaltz/word2vec-GoogleNews-vectors>`_)
-6. Run CoreNLP
-7. Run src/Main.py
+6. Download  W2V for Russian and  put it in folder data (recommended `this from rusvectors <http://rusvectores.org/static/models/rusvectores4/RNC/ruscorpora_upos_skipgram_300_5_2018.vec.gz>`_)
+7. Run CoreNLP
+8. Run src/Main.py
 
 
 Architecture

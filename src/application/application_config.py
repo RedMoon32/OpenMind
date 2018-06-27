@@ -4,7 +4,8 @@ from application.application import IntegrationType
 from application.intent import Intent
 from application.parameter import Parameter
 from application.data_type import DataType
-
+from language.models.ru.RussianModel import RussianLanguageModel
+from language.models.en.english_language_model import EnglishLanguageModel
 APPLICATIONS_TAG = "applications"
 APPLICATION_TURN_ON = "turn_on"
 APPLICATION_NAME_TAG = "name"
@@ -85,5 +86,8 @@ def get_lemmas(text, language_model):
     tokens = language_model.tokenize(text)
     new_request_list = []
     for token in tokens:
-        new_request_list.append(token.get_lemma().lower())
+        if type(language_model)==RussianLanguageModel:
+            new_request_list.append(token.get_lemma())
+        else:
+            new_request_list.append(token.get_lemma().lower())
     return new_request_list

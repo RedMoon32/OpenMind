@@ -6,7 +6,6 @@ from language.models.token import Token
 from language.models.language_model import LanguageModel
 import pymorphy2
 
-
 morph = pymorphy2.MorphAnalyzer()
 
 
@@ -14,7 +13,7 @@ class RussianLanguageModel(LanguageModel):
     __name = "Russian"
     __code = "ru"
 
-    def __init__(self, config):
+    def __init__(self):
         self.pos_map = {"VERB": POS.VERB,
                         "INFN": POS.VERB,
                         "NOUN": POS.NOUN,
@@ -26,11 +25,17 @@ class RussianLanguageModel(LanguageModel):
                         "PRTS": POS.PARTICLE,
                         }
 
-        self.ner_map = {"Name": NERType.PERSON,
-                        "Surn": NERType.PERSON,
-                        "NUMB": NERType.NUMBER}
-
-        self.__question_words = {"где", "кто", "что", "когда", "почему", "чей", "какой", "как"}
+        self.pymorph_to_w2v_map = {"VERB": "VERB",
+                                   "INFN": "VERB",
+                                   "ADJF": "ADJ",
+                                   "ADJS": "ADJ",
+                                   "NOUN": "NOUN",
+                                   "ADVB": "ADV",
+                                   "NUMR": "NUM",
+                                   "PRTF": "PART",
+                                   "PRTS": "PART",
+                                   "NPRO": "NOUN"
+                                   }
 
     def get_language_name(self):
         return RussianLanguageModel.__name
@@ -42,13 +47,11 @@ class RussianLanguageModel(LanguageModel):
     def convert_pos(self, pos_str):
         return self.pos_map.get(pos_str, POS.UNKOWN)
 
-    def convert_ner(self, ner):
-        ner = ner.upper()
-        return self.ner_map.get(ner, None)
+    def pos_from_pymorph_to_w2v(self, str):
+        return self.pymorph_to_w2v_map.get(str, "unkown")
 
-    def is_question(self, tokens_list):
-        lemma = tokens_list[0].get_lemma()
-        return lemma in self.__question_words
+    def convert_ner(self, ner):
+        raise NotImplementedError()
 
     def tokenize(self, string):
         splited = string.split(' ')
@@ -57,10 +60,8 @@ class RussianLanguageModel(LanguageModel):
             description = morph.parse(word)[0]
             lemma = description.normal_form
             pos_tag = self.convert_pos(description.tag.POS)
+            if description.tag.POS != None:
+                lemma += '_' + self.pos_from_pymorph_to_w2v(description.tag.POS)
             token = Token(word, lemma, pos_tag)
             result.append(token)
         return result
-
-r=RussianLanguageModel(None)
-a=r.tokenize('Привет 33 зовут Илья')
-print()

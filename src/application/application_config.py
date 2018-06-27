@@ -86,8 +86,5 @@ def get_lemmas(text, language_model):
     tokens = language_model.tokenize(text)
     new_request_list = []
     for token in tokens:
-        if type(language_model)==RussianLanguageModel:
-            new_request_list.append(token.get_lemma())
-        else:
-            new_request_list.append(token.get_lemma().lower())
+        new_request_list.append(token.get_w2v_form())
     return new_request_list

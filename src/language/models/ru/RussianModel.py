@@ -53,6 +53,9 @@ class RussianLanguageModel(LanguageModel):
     def convert_ner(self, ner):
         raise NotImplementedError()
 
+    def get_w2v_form(self, lemma, pos):
+        return lemma + '_' + self.pos_from_pymorph_to_w2v(pos)
+
     def tokenize(self, string):
         splited = string.split(' ')
         result = []
@@ -60,8 +63,9 @@ class RussianLanguageModel(LanguageModel):
             description = morph.parse(word)[0]
             lemma = description.normal_form
             pos_tag = self.convert_pos(description.tag.POS)
+            vect_form = lemma
             if description.tag.POS != None:
-                lemma += '_' + self.pos_from_pymorph_to_w2v(description.tag.POS)
-            token = Token(word, lemma, pos_tag)
+                vect_form = self.get_w2v_form(lemma, description.tag.POS)
+            token = Token(word, lemma, pos_tag, vect_form)
             result.append(token)
         return result

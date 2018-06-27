@@ -30,7 +30,7 @@ class IntentDetector:
         temp_list = request_information.get_tokens_list()
         new_request_list = []
         for token in temp_list:
-            new_request_list.append(token.get_lemma())
+            new_request_list.append(token.get_w2v_form())
 
         app = None
         intent_description = None
@@ -53,7 +53,7 @@ class IntentDetector:
             intents_dict = app_imp.get_intents()
             for intent_key, intent in intents_dict.items():
                 for token in request_information.get_tokens_list():
-                    if token.get_lemma() == intent_key:
+                    if token.get_w2v_form() == intent_key:
                         app = app_imp
                         intent_description = intent
                         return app, intent_description

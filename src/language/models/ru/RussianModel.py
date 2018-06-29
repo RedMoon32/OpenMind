@@ -5,6 +5,7 @@ from language.models.part_of_speech import POS
 from language.models.token import Token
 from language.models.language_model import LanguageModel
 import pymorphy2
+import re
 
 morph = pymorphy2.MorphAnalyzer()
 
@@ -13,7 +14,7 @@ class RussianLanguageModel(LanguageModel):
     __name = "Russian"
     __code = "ru"
 
-    def __init__(self):
+    def __init__(self, config=None):
         self.pos_map = {"VERB": POS.VERB,
                         "INFN": POS.VERB,
                         "NOUN": POS.NOUN,
@@ -34,7 +35,8 @@ class RussianLanguageModel(LanguageModel):
                                    "NUMR": "NUM",
                                    "PRTF": "PART",
                                    "PRTS": "PART",
-                                   "NPRO": "NOUN"
+                                   "NPRO": "NOUN",
+                                   "PNCT": "PUNCT"
                                    }
 
     def get_language_name(self):
@@ -60,6 +62,7 @@ class RussianLanguageModel(LanguageModel):
         splited = string.split(' ')
         result = []
         for word in splited:
+            word = "".join([c for c in word if c not in ['?', '!', '_']])
             description = morph.parse(word)[0]
             lemma = description.normal_form
             pos_tag = self.convert_pos(description.tag.POS)

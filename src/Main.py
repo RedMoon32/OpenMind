@@ -1,16 +1,13 @@
 from configparser import ConfigParser
-from application.application_config import load_config
 from assistant.intent_detector import IntentDetector
-from language.models.ru.RussianModel import RussianLanguageModel
 from interface.console import Console
 from interface.telegram import Telegram
-from language.models.en.english_language_model import EnglishLanguageModel
-from configs.config_constants import RusW2VModelFileTypeKey,RusW2VModelPathKey,InterfaceTypeKey, LogLevelKey, IsStubMode, W2VModelPathKey, W2VModelFileTypeKey
-from gensim.models.keyedvectors import KeyedVectors
+from configs.config_constants import InterfaceTypeKey, LogLevelKey, \
+    IsStubMode
 from threading import Thread
-from distutils.util import strtobool
 import logging
 import os
+from Language_model_factory import load_language
 
 STARTED_WORKING_MESSAGE = "Assistant started working"
 TELEGRAM = "telegram"
@@ -30,23 +27,13 @@ def start():
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     logging.info("Stub mode: {}".format(default_config[IsStubMode]))
-    language_model = RussianLanguageModel()
-    logging.info("Selected {} language mode".format(language_model.get_language_name()))
-
-    config_parser = ConfigParser()
-    config_parser.read("language/models/en/message.ini", encoding="utf-8")
-    message_bundle = config_parser["DEFAULT"]
-
-    app_dict = load_config("RussianApplicationConfig.json", language_model)
-
-    print("Started initialization of Word2Vect")
-    is_binary_w2v = strtobool(default_config[RusW2VModelFileTypeKey])
-    w2v = KeyedVectors.load_word2vec_format(default_config[RusW2VModelPathKey], binary=is_binary_w2v)
+    language_model, message_bundle, app_dict, w2v = load_language("ru", default_config)
     print("Making assistant")
 
     detector: IntentDetector = IntentDetector(default_config, app_dict, w2v)
 
     interface_type = default_config[InterfaceTypeKey]
+    interface_type = CONSOLE
     interface_class = get_interface(interface_type)
     interface = interface_class(language_model, detector, message_bundle, default_config)
 

@@ -8,7 +8,7 @@ from gensim.models.keyedvectors import KeyedVectors
 
 class IntentDetector:
 
-    def __init__(self, config: ConfigManager, application_dict: Dict[str, Application], w2v: KeyedVectors):
+    def __init__(self, config: ConfigManager, application_dict: Dict[str, Application], w2v: KeyedVectors): develop
         self.__config = config
         self.__application_dict = application_dict
         self.__w2v = w2v

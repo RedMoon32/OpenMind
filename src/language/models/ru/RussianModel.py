@@ -5,7 +5,7 @@ from language.models.part_of_speech import POS
 from language.models.token import Token
 from language.models.language_model import LanguageModel
 import pymorphy2
-import re
+
 
 morph = pymorphy2.MorphAnalyzer()
 

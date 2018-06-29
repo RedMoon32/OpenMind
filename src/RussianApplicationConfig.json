@@ -31,6 +31,36 @@
             "Здравствуй",
             "Прив"
           ]
+        },
+        {
+          "name": "Say goodbye",
+          "description": "Action for telling goodbye",
+          "samples": [
+            "Пока",
+            "прощай",
+            "увидимся",
+            "Мне надо идти"
+          ]
+        },
+        {
+          "name": "My affairs",
+          "description": "Action for sharing of DPA mood",
+          "samples": [
+            "Ты как",
+            "Как дела",
+            "Что нового",
+            "Как ты себя чувствуешь"
+          ]
+        },
+        {
+          "name": "Current time",
+          "description": "Action return current time",
+          "samples": [
+            "сколько время",
+            "Какое щас время",
+            "Скажи часы",
+            "Пожалуйста скажи сколько время"
+          ]
         }
       ]
     }

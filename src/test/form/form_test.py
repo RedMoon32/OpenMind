@@ -70,10 +70,6 @@ class FormTest(unittest.TestCase):
         token.get_NER_type = Mock(return_value=None)
         token.get_word = Mock(return_value="Goodbye")
         tokens.append(token)
-
-        param = Mock()
-        param.get_name = Mock(return_value="Param")
-
         intent_description = Mock()
         intent_description.get_name = Mock(return_value="Say goodbye")
         intent_description.get_parameters_list = Mock(return_value=[])

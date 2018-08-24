@@ -1,0 +1,68 @@
+{
+  "applications": [
+    {
+      "name": "ExplanationModule",
+      "turn_on": true,
+      "description": "Module for introduction itself",
+      "type": "Module",
+      "impl": "moduls.self_introduction.SelfIntroductionModule",
+      "intents": [
+        {
+          "name": "Ability demonstration",
+          "description": "Representation of assistant ability",
+          "samples": [
+            "Что ты можешь сделать",
+            "Что вы можете",
+            "Какие команды вы знаете",
+            "Какие у вас функции",
+            "Что вы можете сделать, чтобы помочь",
+            "Как ты можешь помочь",
+            "Покажите мне свои способности",
+            "Твои возможности",
+            "Хорошо, что ты можешь сделать?",
+            "Расскажи мне о себе"
+          ]
+        },
+        {
+          "name": "Say hi",
+          "description": "Module for welcome user",
+          "samples": [
+            "Привет",
+            "Здравствуй",
+            "Прив"
+          ]
+        },
+        {
+          "name": "Say goodbye",
+          "description": "Action for telling goodbye",
+          "samples": [
+            "Пока",
+            "прощай",
+            "увидимся",
+            "Мне надо идти"
+          ]
+        },
+        {
+          "name": "My affairs",
+          "description": "Action for sharing of DPA mood",
+          "samples": [
+            "Ты как",
+            "Как дела",
+            "Что нового",
+            "Как ты себя чувствуешь"
+          ]
+        },
+        {
+          "name": "Current time",
+          "description": "Action return current time",
+          "samples": [
+            "сколько время",
+            "Какое щас время",
+            "Скажи часы",
+            "Пожалуйста скажи сколько время"
+          ]
+        }
+      ]
+    }
+  ]
+}
